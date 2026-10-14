@@ -12,9 +12,17 @@
       --accent-color: #f59e0b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-    body {
-      background: var(--bg-gradient); color: var(--text-color);
-      min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
+   body {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://flow-content.google/image/2a47e783-aac5-451a-b94d-cbbd4c50ff70?Expires=1792020676&KeyName=labs-flow-prod-cdn-key&Signature=ZVhLLZ3NtT4XPD3V72zykeFv6u0');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
     .container {
       width: 100%; max-width: 400px; background: var(--card-bg);
@@ -55,8 +63,8 @@
 </head>
 <body>
 <div class="container">
-  <div class="logo" id="placeLogo">☕</div>
-  <h1 id="placeName">Кофейня «Бодрый День»</h1>
+  <div class="logo" id="placeLogo">🥽</div>
+  <h1 id="placeName">Portal VR»</h1>
   <p class="subtitle">Оцените ваш визит. Ваше мнение помогает нам становиться лучше!</p>
   <div class="stars" id="starsContainer">
     <span class="star" data-val="1">★</span>
@@ -67,8 +75,8 @@
   </div>
   <div id="positiveBlock" class="hidden">
     <p class="subtitle">Спасибо за высокую оценку! Будем очень благодарны за отзыв на картах:</p>
-    <a id="yandexLink" href="https://yandex.ru/maps/" target="_blank" class="btn btn-yandex">📍 Оставить отзыв в Яндекс</a>
-    <a id="dgisLink" href="https://2gis.ru/" target="_blank" class="btn btn-2gis">🗺️ Оставить отзыв в 2ГИС</a>
+    <a id="yandexLink" href="https://yandex.ru/maps/org/portal_vr/118411858718/reviews/?indoorLevel=3&ll=56.008008%2C54.752516&z=17" target="_blank" class="btn btn-yandex">📍 Оставить отзыв в Яндекс</a>
+    <a id="dgisLink" href="https://2gis.ru/ufa/firm/70000001080119892/tab/reviews" target="_blank" class="btn btn-2gis">🗺️ Оставить отзыв в 2ГИС</a>
   </div>
   <div id="negativeBlock" class="hidden">
     <p class="subtitle">Нам очень жаль, что мы не оправдали ожиданий. Напишите управляющему напрямую — мы разберемся и всё исправим:</p>
