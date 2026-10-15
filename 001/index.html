@@ -1,25 +1,31 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>РћСЃС‚Р°РІСЊС‚Рµ РѕС‚Р·С‹РІ</title>
+  <title>Оставьте отзыв</title>
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #1a1c20 0%, #0f1012 100%);
-      --card-bg: rgba(255, 255, 255, 0.07);
+      /* ЗДЕСЬ МЕНЯЕТСЯ ЦВЕТ ФОНА (ГРАДИЕНТ): */
+      --bg-gradient: linear-gradient(135deg, #3e2723 0%, #1b120c 100%);
+      --card-bg: rgba(255, 255, 255, 0.08);
       --text-color: #ffffff;
       --accent-color: #f59e0b;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
-      background: var(--bg-gradient); color: var(--text-color);
+      background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('PersonVR.jpg');
+      background-size: cover;
+      background-position: center;
+      color: var(--text-color);
       min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
     }
     .container {
       width: 100%; max-width: 400px; background: var(--card-bg);
-      backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 24px;
+      padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
     }
     .logo {
       width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.1);
@@ -28,59 +34,124 @@
     h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
     p.subtitle { font-size: 14px; opacity: 0.75; margin-bottom: 24px; line-height: 1.4; }
     .stars { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
-    .star { font-size: 38px; cursor: pointer; color: rgba(255,255,255,0.2); transition: 0.2s; user-select: none; }
+    .star {
+      font-size: 38px; cursor: pointer; color: rgba(255,255,255,0.2);
+      transition: transform 0.15s, color 0.2s; user-select: none;
+    }
     .star.active { color: var(--accent-color); transform: scale(1.1); }
     .hidden { display: none !important; }
     .btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
       width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 14px; border: none;
       font-size: 16px; font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s, opacity 0.2s;
     }
+    .btn:active { transform: scale(0.98); }
     .btn-yandex { background: #fc3f1d; color: #fff; }
     .btn-2gis { background: #2eac00; color: #fff; }
     .btn-submit { background: var(--accent-color); color: #000; margin-top: 8px; }
     textarea, input {
       width: 100%; padding: 12px 14px; margin-bottom: 10px; border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.25); color: #fff; font-size: 14px;
+      border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.25); color: #fff; font-size: 14px; outline: none;
     }
     textarea { resize: none; height: 90px; }
     .status-msg { font-size: 14px; margin-top: 12px; color: #4ade80; }
   </style>
 </head>
 <body>
+
 <div class="container">
-  <div class="logo" id="placeLogo">в•</div>
-  <h1 id="placeName">РљРѕС„РµР№РЅСЏ В«Р‘РѕРґСЂС‹Р№ Р”РµРЅСЊВ»</h1>
-  <p class="subtitle">РћС†РµРЅРёС‚Рµ РІР°С€ РІРёР·РёС‚. Р’Р°С€Рµ РјРЅРµРЅРёРµ РїРѕРјРѕРіР°РµС‚ РЅР°Рј СЃС‚Р°РЅРѕРІРёС‚СЊСЃСЏ Р»СѓС‡С€Рµ!</p>
-  <div class="stars">
-    <span class="star" data-val="1">в…</span><span class="star" data-val="2">в…</span>
-    <span class="star" data-val="3">в…</span><span class="star" data-val="4">в…</span><span class="star" data-val="5">в…</span>
+  <div class="logo" id="placeLogo">&#9749;</div>
+  <h1 id="placeName">Кофейня «Бодрый День»</h1>
+  <p class="subtitle">Оцените ваш визит. Ваше мнение помогает нам становиться лучше!</p>
+
+  <div class="stars" id="starsContainer">
+    <span class="star" data-val="1">&#9733;</span>
+    <span class="star" data-val="2">&#9733;</span>
+    <span class="star" data-val="3">&#9733;</span>
+    <span class="star" data-val="4">&#9733;</span>
+    <span class="star" data-val="5">&#9733;</span>
   </div>
+
   <div id="positiveBlock" class="hidden">
-    <p class="subtitle">РЎРїР°СЃРёР±Рѕ Р·Р° РІС‹СЃРѕРєСѓСЋ РѕС†РµРЅРєСѓ! Р‘СѓРґРµРј Р±Р»Р°РіРѕРґР°СЂРЅС‹ Р·Р° РѕС‚Р·С‹РІ РЅР° РєР°СЂС‚Р°С…:</p>
-    <a id="yandexLink" href="https://yandex.ru/maps/" target="_blank" class="btn btn-yandex">рџ“Ќ РћСЃС‚Р°РІРёС‚СЊ РѕС‚Р·С‹РІ РІ РЇРЅРґРµРєСЃ</a>
-    <a id="dgisLink" href="https://2gis.ru/" target="_blank" class="btn btn-2gis">рџ—єпёЏ РћСЃС‚Р°РІРёС‚СЊ РѕС‚Р·С‹РІ РІ 2Р“РРЎ</a>
+    <p class="subtitle">Спасибо за высокую оценку! Будем благодарны за отзыв на картах:</p>
+    <a id="yandexLink" href="https://yandex.ru/maps/" target="_blank" class="btn btn-yandex">&#128205; Оставить отзыв в Яндекс</a>
+    <a id="dgisLink" href="https://2gis.ru/" target="_blank" class="btn btn-2gis">&#128506; Оставить отзыв в 2ГИС</a>
   </div>
+
   <div id="negativeBlock" class="hidden">
-    <p class="subtitle">РќР°РїРёС€РёС‚Рµ СѓРїСЂР°РІР»СЏСЋС‰РµРјСѓ РЅР°РїСЂСЏРјСѓСЋ вЂ” РјС‹ СЂР°Р·Р±РµСЂРµРјСЃСЏ Рё РІСЃС‘ РёСЃРїСЂР°РІРёРј:</p>
-    <input type="text" id="clientPhone" placeholder="Р’Р°С€ С‚РµР»РµС„РѕРЅ РёР»Рё РёРјСЏ">
-    <textarea id="clientComment" placeholder="Р§С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє?"></textarea>
-    <button class="btn btn-submit" id="sendTelegramBtn">РћС‚РїСЂР°РІРёС‚СЊ СѓРїСЂР°РІР»СЏСЋС‰РµРјСѓ</button>
-    <div id="statusMessage" class="status-msg hidden">РЎРїР°СЃРёР±Рѕ! РЎРѕРѕР±С‰РµРЅРёРµ РїРµСЂРµРґР°РЅРѕ СЂСѓРєРѕРІРѕРґСЃС‚РІСѓ.</div>
+    <p class="subtitle">Напишите управляющему напрямую — мы разберемся и всё исправим:</p>
+    <input type="text" id="clientPhone" placeholder="Ваш телефон или имя">
+    <textarea id="clientComment" placeholder="Что пошло не так?"></textarea>
+    <button class="btn btn-submit" id="sendTelegramBtn">Отправить управляющему</button>
+    <div id="statusMessage" class="status-msg hidden">Спасибо! Сообщение передано руководству.</div>
   </div>
 </div>
+
 <script>
+  // ==========================================
+  // НАСТРОЙКИ ЗАВЕДЕНИЯ И ТЕЛЕГРАМ-БОТА (CONFIG)
+  // ==========================================
+  const CONFIG = {
+    placeName: "Portal VR",             // Название заведения
+    logoEmoji: "🥽",                                  // Иконка в кружке сверху
+    yandexUrl: "https://yandex.ru/maps/org/portal_vr/118411858718/reviews/?ll=56.008008%2C54.752516&z=15",            // Ссылка на Яндекс.Карты
+    dgisUrl: "https://2gis.ru/ufa/firm/70000001080119892/tab/reviews",                     // Ссылка на 2ГИС
+    
+    // ВСТАВЬТЕ ДАННЫЕ ВАШЕГО БОТА СЮДА:
+    telegramBotToken: "8795178985:AAH9A2pFQu7-xwRyVcMGFXZpTulEx00fmoM",  // Например: "7123456:AAH1234..."
+    telegramChatId: "874220141"                    // Например: "987654321"
+  };
+
+  document.getElementById('placeName').textContent = CONFIG.placeName;
+  document.getElementById('placeLogo').textContent = CONFIG.logoEmoji;
+  document.getElementById('yandexLink').href = CONFIG.yandexUrl;
+  document.getElementById('dgisLink').href = CONFIG.dgisUrl;
+
+  let selectedRating = 0;
   const stars = document.querySelectorAll('.star');
+
   stars.forEach(star => {
     star.addEventListener('click', () => {
-      const val = parseInt(star.getAttribute('data-val'));
-      stars.forEach(s => s.classList.toggle('active', parseInt(s.getAttribute('data-val')) <= val));
-      document.getElementById('positiveBlock').classList.toggle('hidden', val < 4);
-      document.getElementById('negativeBlock').classList.toggle('hidden', val >= 4);
+      selectedRating = parseInt(star.getAttribute('data-val'));
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.getAttribute('data-val')) <= selectedRating));
+      document.getElementById('positiveBlock').classList.toggle('hidden', selectedRating < 4);
+      document.getElementById('negativeBlock').classList.toggle('hidden', selectedRating >= 4);
     });
   });
-  document.getElementById('sendTelegramBtn').addEventListener('click', () => {
-    document.getElementById('sendTelegramBtn').classList.add('hidden');
+
+  document.getElementById('sendTelegramBtn').addEventListener('click', async () => {
+    const phone = document.getElementById('clientPhone').value.trim() || "Не указан";
+    const comment = document.getElementById('clientComment').value.trim();
+
+    if (!comment) {
+      alert("Пожалуйста, напишите ваш комментарий.");
+      return;
+    }
+
+    const btn = document.getElementById('sendTelegramBtn');
+    btn.disabled = true;
+    btn.textContent = "Отправка...";
+
+    const text = `📍 *${CONFIG.placeName}*\n🚨 *Перехвачен негативный отзыв!*\n\n⭐ Оценка: ${selectedRating} из 5\n👤 Контакт: ${phone}\n💬 Отзыв: ${comment}`;
+
+    try {
+      if (CONFIG.telegramBotToken !== "ВАШ_BOT_TOKEN_ОТ_BOTFATHER") {
+        await fetch(`https://api.telegram.org/bot${CONFIG.telegramBotToken}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: CONFIG.telegramChatId,
+            text: text,
+            parse_mode: 'Markdown'
+          })
+        });
+      }
+    } catch (e) {
+      console.error("Ошибка отправки в Telegram:", e);
+    }
+
+    btn.classList.add('hidden');
     document.getElementById('statusMessage').classList.remove('hidden');
   });
 </script>
