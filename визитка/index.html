@@ -1,88 +1,190 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>РћСЃС‚Р°РІСЊС‚Рµ РѕС‚Р·С‹РІ</title>
+  <title>Электронная визитка</title>
   <style>
     :root {
-      --bg-gradient: linear-gradient(135deg, #1a1c20 0%, #0f1012 100%);
-      --card-bg: rgba(255, 255, 255, 0.07);
+      /* НАСТРОЙКИ ФОНА И ЦВЕТОВ ВИЗИТКИ: */
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #020617 100%);
+      --card-bg: rgba(255, 255, 255, 0.08);
       --text-color: #ffffff;
-      --accent-color: #f59e0b;
+      --accent-color: #3b82f6;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
     body {
-      background: var(--bg-gradient); color: var(--text-color);
+      /* Если нужна картинка на фон, замените var(--bg-gradient) на:
+         linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url('ССЫЛКА_НА_ФОТО') */
+      background: var(--bg-gradient);
+      background-size: cover;
+      background-position: center;
+      color: var(--text-color);
       min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px;
     }
     .container {
       width: 100%; max-width: 400px; background: var(--card-bg);
-      backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 24px; padding: 32px 24px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 28px;
+      padding: 36px 24px 28px; text-align: center; box-shadow: 0 24px 48px rgba(0,0,0,0.5);
     }
-    .logo {
-      width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.1);
-      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; font-size: 32px;
+    .avatar {
+      width: 84px; height: 84px; border-radius: 50%; background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+      font-size: 38px; overflow: hidden;
     }
-    h1 { font-size: 22px; margin-bottom: 8px; font-weight: 700; }
-    p.subtitle { font-size: 14px; opacity: 0.75; margin-bottom: 24px; line-height: 1.4; }
-    .stars { display: flex; justify-content: center; gap: 10px; margin-bottom: 24px; }
-    .star { font-size: 38px; cursor: pointer; color: rgba(255,255,255,0.2); transition: 0.2s; user-select: none; }
-    .star.active { color: var(--accent-color); transform: scale(1.1); }
-    .hidden { display: none !important; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    h1 { font-size: 22px; margin-bottom: 6px; font-weight: 700; letter-spacing: -0.3px; }
+    .subtitle { font-size: 14px; opacity: 0.75; margin-bottom: 14px; line-height: 1.4; }
+    .location-badge {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 8px 16px; border-radius: 20px; font-size: 13px; margin-bottom: 24px; opacity: 0.9;
+    }
+    .links-list { display: flex; flex-direction: column; gap: 12px; }
     .btn {
       display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 14px; border: none;
-      font-size: 16px; font-weight: 600; cursor: pointer; text-decoration: none;
+      width: 100%; padding: 15px 18px; border-radius: 16px; border: none;
+      font-size: 15px; font-weight: 600; cursor: pointer; text-decoration: none;
+      transition: transform 0.15s, opacity 0.2s; color: #fff;
     }
-    .btn-yandex { background: #fc3f1d; color: #fff; }
-    .btn-2gis { background: #2eac00; color: #fff; }
-    .btn-submit { background: var(--accent-color); color: #000; margin-top: 8px; }
-    textarea, input {
-      width: 100%; padding: 12px 14px; margin-bottom: 10px; border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.25); color: #fff; font-size: 14px;
-    }
-    textarea { resize: none; height: 90px; }
-    .status-msg { font-size: 14px; margin-top: 12px; color: #4ade80; }
+    .btn:active { transform: scale(0.98); }
+    .btn-phone { background: #10b981; }
+    .btn-avito { background: #00aaff; }
+    .btn-email { background: rgba(255, 255, 255, 0.14); border: 1px solid rgba(255, 255, 255, 0.15); }
+    .btn-save { background: var(--accent-color); margin-top: 6px; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>
+
 <div class="container">
-  <div class="logo" id="placeLogo">в•</div>
-  <h1 id="placeName">РљРѕС„РµР№РЅСЏ В«Р‘РѕРґСЂС‹Р№ Р”РµРЅСЊВ»</h1>
-  <p class="subtitle">РћС†РµРЅРёС‚Рµ РІР°С€ РІРёР·РёС‚. Р’Р°С€Рµ РјРЅРµРЅРёРµ РїРѕРјРѕРіР°РµС‚ РЅР°Рј СЃС‚Р°РЅРѕРІРёС‚СЊСЃСЏ Р»СѓС‡С€Рµ!</p>
-  <div class="stars">
-    <span class="star" data-val="1">в…</span><span class="star" data-val="2">в…</span>
-    <span class="star" data-val="3">в…</span><span class="star" data-val="4">в…</span><span class="star" data-val="5">в…</span>
+  <div class="avatar" id="avatarBox">&#128188;</div>
+  <h1 id="titleText">Название или Имя</h1>
+  <p class="subtitle" id="descText">Описание деятельности</p>
+
+  <div class="location-badge" id="locationBox">
+    <span>&#128205;</span>
+    <span id="addressText">г. Москва, ул. Примерная, д. 1</span>
   </div>
-  <div id="positiveBlock" class="hidden">
-    <p class="subtitle">РЎРїР°СЃРёР±Рѕ Р·Р° РІС‹СЃРѕРєСѓСЋ РѕС†РµРЅРєСѓ! Р‘СѓРґРµРј Р±Р»Р°РіРѕРґР°СЂРЅС‹ Р·Р° РѕС‚Р·С‹РІ РЅР° РєР°СЂС‚Р°С…:</p>
-    <a id="yandexLink" href="https://yandex.ru/maps/" target="_blank" class="btn btn-yandex">рџ“Ќ РћСЃС‚Р°РІРёС‚СЊ РѕС‚Р·С‹РІ РІ РЇРЅРґРµРєСЃ</a>
-    <a id="dgisLink" href="https://2gis.ru/" target="_blank" class="btn btn-2gis">рџ—єпёЏ РћСЃС‚Р°РІРёС‚СЊ РѕС‚Р·С‹РІ РІ 2Р“РРЎ</a>
-  </div>
-  <div id="negativeBlock" class="hidden">
-    <p class="subtitle">РќР°РїРёС€РёС‚Рµ СѓРїСЂР°РІР»СЏСЋС‰РµРјСѓ РЅР°РїСЂСЏРјСѓСЋ вЂ” РјС‹ СЂР°Р·Р±РµСЂРµРјСЃСЏ Рё РІСЃС‘ РёСЃРїСЂР°РІРёРј:</p>
-    <input type="text" id="clientPhone" placeholder="Р’Р°С€ С‚РµР»РµС„РѕРЅ РёР»Рё РёРјСЏ">
-    <textarea id="clientComment" placeholder="Р§С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє?"></textarea>
-    <button class="btn btn-submit" id="sendTelegramBtn">РћС‚РїСЂР°РІРёС‚СЊ СѓРїСЂР°РІР»СЏСЋС‰РµРјСѓ</button>
-    <div id="statusMessage" class="status-msg hidden">РЎРїР°СЃРёР±Рѕ! РЎРѕРѕР±С‰РµРЅРёРµ РїРµСЂРµРґР°РЅРѕ СЂСѓРєРѕРІРѕРґСЃС‚РІСѓ.</div>
+
+  <div class="links-list">
+    <a id="phoneBtn" href="#" class="btn btn-phone">
+      <span>&#128222;</span> <span id="phoneLabel">Позвонить</span>
+    </a>
+
+    <a id="avitoBtn" href="#" target="_blank" class="btn btn-avito">
+      <span>&#128717;</span> <span>Профиль на Авито</span>
+    </a>
+
+    <a id="emailBtn" href="#" class="btn btn-email">
+      <span>&#9993;</span> <span id="emailLabel">Написать на почту</span>
+    </a>
+
+    <button id="saveContactBtn" class="btn btn-save">
+      <span>&#128190;</span> <span>Сохранить в контакты</span>
+    </button>
   </div>
 </div>
+
 <script>
-  const stars = document.querySelectorAll('.star');
-  stars.forEach(star => {
-    star.addEventListener('click', () => {
-      const val = parseInt(star.getAttribute('data-val'));
-      stars.forEach(s => s.classList.toggle('active', parseInt(s.getAttribute('data-val')) <= val));
-      document.getElementById('positiveBlock').classList.toggle('hidden', val < 4);
-      document.getElementById('negativeBlock').classList.toggle('hidden', val >= 4);
-    });
-  });
-  document.getElementById('sendTelegramBtn').addEventListener('click', () => {
-    document.getElementById('sendTelegramBtn').classList.add('hidden');
-    document.getElementById('statusMessage').classList.remove('hidden');
+  // ==========================================
+  // НАСТРОЙКИ ВИЗИТКИ (РЕДАКТИРУЙТЕ ЗДЕСЬ)
+  // ==========================================
+  const CONFIG = {
+    name: "VGR PRINT",          // Название компании или Ваше Имя
+    description: "Продажа рекламного оборудования - Вадим", // Подпись под названием
+    avatarEmoji: "💼",                           // Эмодзи в кружке (если нет фото)
+    avatarImageUrl: "",                          // Ссылка на фото/логотип (оставьте пустым "", если нужен эмодзи)
+
+    city: "г. Уфа",                           // Город
+    street: "ул. Коммунистическаяб, 80",         // Улица и дом
+
+    phoneDisplay: "+7 (999) 999 99 99",          // Как номер выглядит на кнопке
+    phoneLink: "+79991234567",                   // Номер для набора (без пробелов и скобок)
+
+    avitoUrl: "https://www.avito.ru/brands/i36192448/all?iid=7965217184&src=search_seller_info&sellerId=bd7744c2430d3aa5208f9efc51e29d38",           // Прямая ссылка на ваш профиль или объявление Авито
+    email: "vgr_print@mail.ru"                     // Ваша электронная почта
+  };
+
+  // Заполнение данных на странице
+  document.getElementById('titleText').textContent = CONFIG.name;
+  document.title = CONFIG.name;
+
+  if (CONFIG.description) {
+    document.getElementById('descText').textContent = CONFIG.description;
+  } else {
+    document.getElementById('descText').classList.add('hidden');
+  }
+
+  // Аватарка (картинка или эмодзи)
+  const avatarBox = document.getElementById('avatarBox');
+  if (CONFIG.avatarImageUrl.trim() !== "") {
+    avatarBox.innerHTML = `<img src="${CONFIG.avatarImageUrl}" alt="Logo">`;
+  } else {
+    avatarBox.textContent = CONFIG.avatarEmoji;
+  }
+
+  // Город и улица
+  const fullAddress = [CONFIG.city, CONFIG.street].filter(Boolean).join(", ");
+  if (fullAddress) {
+    document.getElementById('addressText').textContent = fullAddress;
+  } else {
+    document.getElementById('locationBox').classList.add('hidden');
+  }
+
+  // Телефон
+  const phoneBtn = document.getElementById('phoneBtn');
+  if (CONFIG.phoneLink) {
+    phoneBtn.href = `tel:${CONFIG.phoneLink}`;
+    document.getElementById('phoneLabel').textContent = `Позвонить: ${CONFIG.phoneDisplay}`;
+  } else {
+    phoneBtn.classList.add('hidden');
+  }
+
+  // Авито
+  const avitoBtn = document.getElementById('avitoBtn');
+  if (CONFIG.avitoUrl) {
+    avitoBtn.href = CONFIG.avitoUrl;
+  } else {
+    avitoBtn.classList.add('hidden');
+  }
+
+  // Почта
+  const emailBtn = document.getElementById('emailBtn');
+  if (CONFIG.email) {
+    emailBtn.href = `mailto:${CONFIG.email}`;
+    document.getElementById('emailLabel').textContent = CONFIG.email;
+  } else {
+    emailBtn.classList.add('hidden');
+  }
+
+  // Кнопка "Сохранить контакт" в телефонную книгу (.vcf)
+  document.getElementById('saveContactBtn').addEventListener('click', () => {
+    const vcard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      `FN:${CONFIG.name}`,
+      `TITLE:${CONFIG.description}`,
+      `TEL;TYPE=CELL:${CONFIG.phoneLink}`,
+      `EMAIL:${CONFIG.email}`,
+      `ADR;TYPE=WORK:;;${CONFIG.street};${CONFIG.city};;;`,
+      `URL:${CONFIG.avitoUrl}`,
+      "END:VCARD"
+    ].join("\n");
+
+    const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "contact.vcf";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   });
 </script>
+
 </body>
 </html>
